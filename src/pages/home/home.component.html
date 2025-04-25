@@ -1,0 +1,57 @@
+
+  <div class="container">
+    <aside class="sidebar">
+      <section class="filter-group">
+        <h3>Sort by</h3>
+        <label><input type="radio" name="sort"/> Price: Low-High</label><br/>
+        <label><input type="radio" name="sort"/> Experience - Most Experience first</label>
+      </section>
+
+      <section class="filter-group">
+        <div class="filter-header">
+          <h3>Filters</h3>
+          <button class="clear-btn">Clear All</button>
+        </div>
+
+        <div class="filter-subgroup">
+          <p>Specialities</p>
+          <input type="text" placeholder="Search" class="sub-search"/>
+          <label><input type="checkbox"/> Neurologist</label><br/>
+          <label><input type="checkbox"/> Oncologist</label><br/>
+          <label><input type="checkbox"/> Ayurveda</label><br/>
+          <label><input type="checkbox"/> Homeopath</label>
+        </div>
+
+        <div class="filter-subgroup">
+          <p>Mode of consultation</p>
+          <label><input type="radio" name="mode"/> Video Consultation</label><br/>
+          <label><input type="radio" name="mode" checked/> In-clinic Consultation</label><br/>
+          <label><input type="radio" name="mode"/> All</label>
+        </div>
+      </section>
+    </aside>
+
+    <main class="doctor-list">
+      <!-- Doctor Card -->
+      <div class="doctor-card">
+        <div class="doctor-info">
+          <div class="doctor-img"></div>
+          <div>
+            <h4>Dr. Munaf Inamdar</h4>
+            <p>General Physician</p>
+            <p>MBBS, MD-General Medicine</p>
+            <p>27 yrs exp.</p>
+            <p>Apex Multispeciality and Mater...</p>
+            <p>Kondhawa Khurd</p>
+          </div>
+        </div>
+        <div class="doctor-action">
+          <p>₹600</p>
+          <button>Book Appointment</button>
+        </div>
+      </div>
+
+      <!-- Repeat doctor cards as needed -->
+    </main>
+  </div>
+
