@@ -1,100 +1,99 @@
 <div class="flex flex-col min-h-screen bg-gray-100">
-  <div class="header">
-    <div class="header-container">
-      <div class="search-box">
-        <i class="fas fa-search search-icon"></i>
-        <input
-          placeholder="Search Symptoms, Doctors, Specialists, Clinics"
-          class="search-input"
-          type="text"
-        />
-      </div>
+    <div class="header">
+        <div class="header-container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input placeholder="Search Symptoms, Doctors, Specialists, Clinics" class="search-input" type="text"
+                    [(ngModel)]="searchQuery" (input)="searchByName(searchQuery)" />
+            </div>
+        </div>
     </div>
-  </div>
-  
 
-  <div class="flex max-w-6xl mx-auto w-full p-4 space-x-6">
-    <!-- <div class="w-1/4 space-y-4">
-      <div>
-        <p class="font-semibold mb-2">Sort by</p>
-        <div>
-          <label><input type="radio" name="sort" [(ngModel)]="selectedSort" value="price" /> Price: Low-High</label><br />
-          <label><input type="radio" name="sort" [(ngModel)]="selectedSort" value="experience" /> Experience - Most Experience first</label>
-        </div>
-      </div>
 
-      <div>
-        <p class="font-semibold mb-2">Filters</p>
-        <p class="font-semibold text-sm mb-1">Specialities</p>
-        <div *ngFor="let spec of specialities">
-          <label><input type="checkbox" [value]="spec" /> {{ spec }}</label>
+    <div class="custom-container">
+
+        <div class="filter-panel">
+
+            <div class="sort-section">
+                <p class="section-title">Sort by</p>
+
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" name="sortFees" [(ngModel)]="selectedSortOption" [value]="'lowToHigh'"
+                            (change)="sortByFeesLowToHigh()" />
+                        Price: Low-High
+                    </label>
+
+                    <label class="option-item">
+                        <input type="radio" name="sortFees" [(ngModel)]="selectedSortOption" [value]="'highToLow'"
+                            (change)="sortByFeesHighToLow()" />
+                        Price: High-Low
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <p class="section-title">Filters</p>
+
+                <p class="subsection-title">Specialities</p>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('General Physician')" /> General
+                        Physician
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('Ayurveda')" /> Ayurveda
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('Homeopath')" /> Homeopath
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('Dentist')" /> Dentist
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('ENT')" /> ENT
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" (change)="toggleSpecialityFilter('Psychiatrist')" /> Psychiatrist
+                    </label>
+                </div>
+
+
+                <p class="subsection-title">Mode of consultation</p>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'Video Consultation'" /> Video Consultation
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'In-clinic Consultation'" /> In-clinic Consultation
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'All'" /> All
+                    </label>
+                </div>
+            </div>
         </div>
 
-        <p class="font-semibold text-sm mt-4 mb-1">Mode of consultation</p>
-        <div>
-          <label><input type="radio" name="mode" [(ngModel)]="selectedMode" value="video" /> Video Consultation</label><br />
-          <label><input type="radio" name="mode" [(ngModel)]="selectedMode" value="in-clinic" /> In-clinic Consultation</label><br />
-          <label><input type="radio" name="mode" [(ngModel)]="selectedMode" value="all" /> All</label>
-        </div>
-      </div>
-    </div> -->
 
-    <div class="filter-panel">
-      <div class="sort-section">
-        <p class="section-title">Sort by</p>
-        <div class="option-group">
-          <label class="option-item">
-            <input type="radio" name="sort" [(ngModel)]="selectedSort" value="price" /> Price: Low-High
-          </label>
-          <label class="option-item">
-            <input type="radio" name="sort" [(ngModel)]="selectedSort" value="experience" /> Experience - Most Experience first
-          </label>
+        <div class="w-[1000px] space-y-4">
+            <div *ngFor="let doc of filteredDoctors"
+                class="flex justify-between items-center bg-white p-4 rounded shadow">
+                <div class="flex gap-4 items-start">
+                    <img [src]="doc.photo" class="rounded-full h-16 w-16 object-cover" />
+                    <div>
+                        <h2 class="font-semibold text-lg">{{ doc.name }}</h2>
+                        <p class="text-sm">{{ doc.specialities[0]?.name }}</p>
+                        <p class="text-sm text-gray-600">{{ doc.experience }}</p>
+                        <p class="text-sm text-gray-700">{{ doc.clinic.name }}</p>
+                        <p class="text-sm text-gray-600">{{ doc.clinic.address.locality }}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <p class="font-semibold">{{ doc.fees }}</p>
+                    <button class="border px-4 py-1 rounded">Book Appointment</button>
+                </div>
+            </div>
         </div>
-      </div>
-    
-      <div class="filter-section">
-        <p class="section-title">Filters</p>
-    
-        <p class="subsection-title">Specialities</p>
-        <div class="option-group">
-          <label class="option-item" *ngFor="let spec of specialities">
-            <input type="checkbox" [value]="spec" /> {{ spec }}
-          </label>
-        </div>
-    
-        <p class="subsection-title">Mode of consultation</p>
-        <div class="option-group">
-          <label class="option-item">
-            <input type="radio" name="mode" [(ngModel)]="selectedMode" value="video" /> Video Consultation
-          </label>
-          <label class="option-item">
-            <input type="radio" name="mode" [(ngModel)]="selectedMode" value="in-clinic" /> In-clinic Consultation
-          </label>
-          <label class="option-item">
-            <input type="radio" name="mode" [(ngModel)]="selectedMode" value="all" /> All
-          </label>
-        </div>
-      </div>
     </div>
-    
-
-    <div class="w-3/4 space-y-4">
-      <div *ngFor="let doc of doctors" class="flex justify-between items-center bg-white p-4 rounded shadow">
-        <div class="flex gap-4 items-start">
-          <img [src]="doc.photo" alt="Doctor" class="rounded-full h-16 w-16 object-cover" />
-          <div>
-            <h2 class="font-semibold text-lg">{{ doc.name }}</h2>
-            <p class="text-sm">{{ doc.specialities[0]?.name }}</p>
-            <p class="text-sm text-gray-600">{{ doc.experience }}</p>
-            <p class="text-sm text-gray-700">{{ doc.clinic.name }}</p>
-            <p class="text-sm text-gray-600">{{ doc.clinic.address.locality }}</p>
-          </div>
-        </div>
-        <div class="flex flex-col items-end gap-2">
-          <p class="font-semibold">{{ doc.fees }}</p>
-          <button class="border px-4 py-1 rounded">Book Appointment</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
