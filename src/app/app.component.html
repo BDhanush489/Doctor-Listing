@@ -39,23 +39,34 @@
                 <p class="subsection-title">Specialities</p>
                 <div class="option-group">
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('General Physician')" /> General
+                        <input type="checkbox" [checked]="specialties['General Physician']"
+                            (change)="toggleSpecialityFilter($event,'General Physician')" /> General
                         Physician
                     </label>
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('Ayurveda')" /> Ayurveda
+                        <input type="checkbox" [checked]="specialties['Ayurveda']"
+                            (change)="toggleSpecialityFilter($event, 'Ayurveda')" />
+                        Ayurveda
                     </label>
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('Homeopath')" /> Homeopath
+                        <input type="checkbox" [checked]="specialties['Homeopath']"
+                            (change)="toggleSpecialityFilter($event, 'Homeopath')" />
+                        Homeopath
                     </label>
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('Dentist')" /> Dentist
+                        <input type="checkbox" [checked]="specialties['Dentist']"
+                            (change)="toggleSpecialityFilter($event, 'Dentist')" />
+                        Dentist
                     </label>
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('ENT')" /> ENT
+                        <input type="checkbox" [checked]="specialties['ENT']"
+                            (change)="toggleSpecialityFilter($event, 'ENT')" />
+                        ENT
                     </label>
                     <label class="option-item">
-                        <input type="checkbox" (change)="toggleSpecialityFilter('Psychiatrist')" /> Psychiatrist
+                        <input type="checkbox" [checked]="specialties['Psychiatrist']"
+                            (change)="toggleSpecialityFilter($event, 'Psychiatrist')" />
+                            Psychiatrist
                     </label>
                 </div>
 
@@ -63,13 +74,16 @@
                 <p class="subsection-title">Mode of consultation</p>
                 <div class="option-group">
                     <label class="option-item">
-                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'Video Consultation'" /> Video Consultation
+                        <input type="radio" name="sort" [(ngModel)]="selectedConsultation"
+                            [value]="'Video Consultation'" (change)="applyFilters()" /> Video Consultation
                     </label>
                     <label class="option-item">
-                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'In-clinic Consultation'" /> In-clinic Consultation
+                        <input type="radio" name="sort" [(ngModel)]="selectedConsultation"
+                            [value]="'In-clinic Consultation'" (change)="applyFilters()" /> In-clinic Consultation
                     </label>
                     <label class="option-item">
-                        <input type="radio" [(ngModel)]="selectedConsultation" [value]="'All'" /> All
+                        <input type="radio" name="sort" [(ngModel)]="selectedConsultation" [value]="'All'"
+                            (change)="applyFilters()" /> All
                     </label>
                 </div>
             </div>
@@ -80,7 +94,7 @@
             <div *ngFor="let doc of filteredDoctors"
                 class="flex justify-between items-center bg-white p-4 rounded shadow">
                 <div class="flex gap-4 items-start">
-                    <img [src]="doc.photo" class="rounded-full h-16 w-16 object-cover" />
+                    <img [src]="doc.photo" alt="NotFound" class="rounded-full h-16 w-16 object-cover" />
                     <div>
                         <h2 class="font-semibold text-lg">{{ doc.name }}</h2>
                         <p class="text-sm">{{ doc.specialities[0]?.name }}</p>
